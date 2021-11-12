@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - add_ssh_keys:
+          fingerprint:
+            - ""
+      - checkout
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker build -t franciscobrioneslavados/CICD-circleCI:$CIRCLE_SHA1 .
+      - run: docker push franciscobrioneslavados/CICD-circleCI:$CIRCLE_SHA1
